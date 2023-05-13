@@ -209,35 +209,40 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             Container(
-              height: 100,
+              height: 270,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 color: Color(0xFFF5C518),
               ),
               margin: EdgeInsets.only(bottom: 16.0),
               padding: EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Customer Review',
-                        style: fredokaTextStyle(20, Colors.white),
-                      ),
-                      SizedBox(height: 8.0),
-                      Text(
-                        '15+',
-                        style: fredokaTextStyle(24, Colors.white),
-                      ),
-                    ],
+                  Text(
+                    'Customer Review',
+                    style: fredokaTextStyle(20, Colors.white),
                   ),
-                  // Image.asset(
-                  //   'assets/yet_another.png',
-                  //   width: 80,
-                  //   height: 80,
-                  // ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    '150 Global Ratings',
+                    style: TextStyle(
+                      fontFamily: 'Manrope',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 25.0),
+                  buildRatingBar('5 stars', 0.8, '80%', Color(0xFFFFFFFF), Colors.white),
+                  SizedBox(height: 8.0),
+                  buildRatingBar('4 stars', 0.5, '50%', Color(0xFFFFFFFF), Colors.white),
+                  SizedBox(height: 8.0),
+                  buildRatingBar('3 stars', 0.3, '30%', Color(0xFFFFFFFF), Colors.white),
+                  SizedBox(height: 8.0),
+                  buildRatingBar('2 stars', 0.1, '10%', Color(0xFFFFFFFF), Colors.white),
+                  SizedBox(height: 8.0),
+                  buildRatingBar('1 star   ', 0.05, '5%', Color(0xFFFFFFFF), Colors.white),
                 ],
               ),
             ),
@@ -264,4 +269,55 @@ class SettingsTab extends StatelessWidget {
       child: Text('Settings Tab'),
     );
   }
+}
+
+Widget buildRatingBar(String label, double widthFactor, String percentage, Color color, Color white) {
+  return Row(
+    children: [
+      Text(
+        label,
+        style: TextStyle(
+          fontFamily: 'Fredoka',
+          fontSize: 16,
+          color: color,
+        ),
+      ),
+      SizedBox(width: 8.0),
+      Container(
+        width: 150,
+        height: 20,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: color,
+        ),
+        child: FractionallySizedBox(
+          alignment: Alignment.centerLeft,
+          widthFactor: widthFactor,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Color(0xFFABCDEF),
+            ),
+          ),
+        ),
+      ),
+      SizedBox(width: 8.0),
+      Text(
+        percentage,
+        style: TextStyle(
+          fontFamily: 'Fredoka',
+          fontSize: 16,
+          color: color,
+        ),
+      ),
+    ],
+  );
+}
+
+TextStyle fredokaTextStyle(double fontSize, Color color) {
+  return TextStyle(
+    fontFamily: 'Fredoka',
+    fontSize: fontSize,
+    color: color,
+  );
 }

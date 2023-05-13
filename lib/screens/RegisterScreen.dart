@@ -21,6 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _pageController.dispose();
     super.dispose();
   }
+
   void _goToNextPage() {
     if (_currentPageIndex < 2) {
       _pageController.nextPage(
@@ -36,7 +37,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-
   void _enablePageScrolling() {
     setState(() {
       _isPageScrollable = true;
@@ -51,9 +51,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -109,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         Text(
                           'Full Name',
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 8),
                         TextField(
@@ -119,36 +116,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(height: 16),
                         Text(
                           'Company Name',
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 8),
                         TextField(
                           decoration: _buildInputDecoration(''),
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 16),
                         Text(
                           'Job Title',
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 8),
                         TextField(
                           decoration: _buildInputDecoration(''),
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                       ],
                     ),
                   ),
-
-
-
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Business Location Address',
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 8),
                         TextField(
@@ -158,28 +152,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(height: 16),
                         Text(
                           'Business Contact Number',
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 8),
                         TextField(
                           decoration: _buildInputDecoration(''),
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 16),
                         Text(
                           'Work Email Address',
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                         SizedBox(height: 8),
                         TextField(
                           decoration: _buildInputDecoration(''),
-                          style:_textFieldStyle,
+                          style: _textFieldStyle,
                         ),
                       ],
                     ),
                   ),
                   Container(
-
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Column(
@@ -189,9 +182,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             padding: EdgeInsets.zero,
                             child: Text(
                               'Instruction: To verify the authenticity of your business, please provide relevant information or documentation that confirms your business\'s legitimacy. '
-                                  'This may include company registration details, tax identification numbers, licenses, or any other official documents. '
-                                  'Please ensure the information is accurate and up-to-date.',
-                              style: TextStyle(fontSize: 18, color: Colors.black),
+                              'This may include company registration details, tax identification numbers, licenses, or any other official documents. '
+                              'Please ensure the information is accurate and up-to-date.',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black),
                               textAlign: TextAlign.justify,
                               textDirection: TextDirection.ltr,
                             ),
@@ -231,6 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+
 InputDecoration _buildInputDecoration(String label) {
   return InputDecoration(
     labelText: label,

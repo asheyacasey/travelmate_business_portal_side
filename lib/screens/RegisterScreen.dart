@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:travelmate_business/screens/HomeScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class RegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
+
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _companyNameController = TextEditingController();
+  final TextEditingController _jobTitleController = TextEditingController();
+  final TextEditingController _locationAddressController = TextEditingController();
+  final TextEditingController _contactNumberController = TextEditingController();
+  final TextEditingController _emailAddressController = TextEditingController();
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final PageController _pageController = PageController(initialPage: 0);
+  int _currentPageIndex = 0;
+  bool _isPageScrollable = false;
+
   final TextStyle _textFieldStyle = TextStyle(
     fontFamily: 'Manrope',
     fontSize: 18,
     color: Colors.black,
   );
-  final PageController _pageController = PageController(initialPage: 0);
-  int _currentPageIndex = 0;
-  bool _isPageScrollable = false;
 
   @override
   void dispose() {
@@ -25,11 +38,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _goToNextPage() {
     if (_currentPageIndex < 2) {
       _pageController.nextPage(
-          duration: Duration(milliseconds: 300), curve: Curves.ease);
+        duration: Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
       setState(() {
         _currentPageIndex++;
       });
     } else {
+      _saveDataToFirestore(); // Save data to Firestore
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -48,6 +64,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _isPageScrollable = false;
     });
   }
+
+  void _saveDataToFirestore() async {
+    // Get the field values
+    String fullName = _fullNameController.text;
+    String companyName = _companyNameController.text;
+    String jobTitle = _jobTitleController.text;
+    String locationAddress = _locationAddressController.text;
+    String contactNumber = _contactNumberController.text;
+    String emailAddress = _emailAddressController.text;
+
+    // Create a document in Firestore collection and set the field values
+    await FirebaseFirestore.instance.collection('users').add({
+      'full_name': fullName,
+      'company_name': companyName,
+      'job_title': jobTitle,
+      'location_address': locationAddress,
+      'contact_number': contactNumber,
+      'email_address': emailAddress,
+    });
+
+    // Optionally, you can show a success message or navigate to the next screen
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: _fullNameController,
                           decoration: _buildInputDecoration(''),
                           style: _textFieldStyle,
                         ),
@@ -120,6 +160,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: _companyNameController,
                           decoration: _buildInputDecoration(''),
                           style: _textFieldStyle,
                         ),
@@ -130,6 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: _jobTitleController,
                           decoration: _buildInputDecoration(''),
                           style: _textFieldStyle,
                         ),
@@ -146,6 +188,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: _locationAddressController,
                           decoration: _buildInputDecoration(''),
                           style: _textFieldStyle,
                         ),
@@ -156,6 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: _contactNumberController,
                           decoration: _buildInputDecoration(''),
                           style: _textFieldStyle,
                         ),
@@ -166,6 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: _emailAddressController,
                           decoration: _buildInputDecoration(''),
                           style: _textFieldStyle,
                         ),

@@ -11,6 +11,8 @@ class RegisterScreen extends StatefulWidget {
 
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _companyNameController = TextEditingController();
   final TextEditingController _jobTitleController = TextEditingController();
@@ -36,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _goToNextPage() {
-    if (_currentPageIndex < 2) {
+    if (_currentPageIndex < 3) {
       _pageController.nextPage(
         duration: Duration(milliseconds: 300),
         curve: Curves.ease,
@@ -67,6 +69,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _saveDataToFirestore() async {
     // Get the field values
+    String email =  _emailController.text;
+    String password = _passwordController.text;
     String fullName = _fullNameController.text;
     String companyName = _companyNameController.text;
     String jobTitle = _jobTitleController.text;
@@ -76,6 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     // Create a document in Firestore collection and set the field values
     await FirebaseFirestore.instance.collection('users').add({
+      'email' : email,
+      'password' : password,
       'full_name': fullName,
       'company_name': companyName,
       'job_title': jobTitle,
@@ -139,82 +145,127 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ? AlwaysScrollableScrollPhysics()
                     : NeverScrollableScrollPhysics(),
                 children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Full Name',
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 8),
-                        TextField(
-                          controller: _fullNameController,
-                          decoration: _buildInputDecoration(''),
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Company Name',
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 8),
-                        TextField(
-                          controller: _companyNameController,
-                          decoration: _buildInputDecoration(''),
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Job Title',
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 8),
-                        TextField(
-                          controller: _jobTitleController,
-                          decoration: _buildInputDecoration(''),
-                          style: _textFieldStyle,
-                        ),
-                      ],
+                  SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Email Address',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _emailController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Create Password',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8), 
+                          TextField(
+                            controller: _passwordController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Confirm Password',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _passwordController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Business Location Address',
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 8),
-                        TextField(
-                          controller: _locationAddressController,
-                          decoration: _buildInputDecoration(''),
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Business Contact Number',
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 8),
-                        TextField(
-                          controller: _contactNumberController,
-                          decoration: _buildInputDecoration(''),
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'Work Email Address',
-                          style: _textFieldStyle,
-                        ),
-                        SizedBox(height: 8),
-                        TextField(
-                          controller: _emailAddressController,
-                          decoration: _buildInputDecoration(''),
-                          style: _textFieldStyle,
-                        ),
-                      ],
+                  SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Full Name',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _fullNameController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Company Name',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _companyNameController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Job Title',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _jobTitleController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Business Location Address',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _locationAddressController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Business Contact Number',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _contactNumberController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'Work Email Address',
+                            style: _textFieldStyle,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            controller: _emailAddressController,
+                            decoration: _buildInputDecoration(''),
+                            style: _textFieldStyle,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Container(
@@ -256,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 minimumSize: Size(double.infinity, 55),
               ),
               child: Text(
-                _currentPageIndex == 2 ? 'Finish' : 'Next',
+                _currentPageIndex == 3 ? 'Finish' : 'Next',
                 style: TextStyle(
                   fontFamily: 'Manrope',
                   fontWeight: FontWeight.bold,

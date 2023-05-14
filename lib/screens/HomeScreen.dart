@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:travelmate_business/screens/LoginScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -712,7 +713,10 @@ class SettingsTab extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Handle log out button press
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.red,

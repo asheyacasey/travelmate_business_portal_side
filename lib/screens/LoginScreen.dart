@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:travelmate_business/screens/RegisterScreen.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
+  Future<void> _login(BuildContext context) async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    print('Email: $email');
-    print('Password: $password');
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      // Sign-in successful, handle the user object or navigate to the next screen
+      // For example, you can navigate to a home screen:
+      Navigator.pushReplacementNamed(context, '/home');
+    } catch (e) {
+      // Sign-in failed, handle the error (display error message, show toast, etc.)
+      print('Sign-in error: $e');
+      // For example, you can display an error message using a snackbar:
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Sign-in failed. Please check your credentials.'),
+        ),
+      );
+    }
   }
 
   void _register() {
@@ -19,7 +36,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+      context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,7 +76,6 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30.0),
-
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -121,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: _login,
+                onPressed: () => _login(context),
               ),
               SizedBox(height: 20.0),
               TextButton(

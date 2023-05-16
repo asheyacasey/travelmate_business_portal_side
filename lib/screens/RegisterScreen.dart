@@ -165,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             'Create Password',
                             style: _textFieldStyle,
                           ),
-                          SizedBox(height: 8), 
+                          SizedBox(height: 8),
                           TextField(
                             controller: _passwordController,
                             decoration: _buildInputDecoration(''),
@@ -278,10 +278,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             padding: EdgeInsets.zero,
                             child: Text(
                               'Instruction: To verify the authenticity of your business, please provide relevant information or documentation that confirms your business\'s legitimacy. '
-                              'This may include company registration details, tax identification numbers, licenses, or any other official documents. '
-                              'Please ensure the information is accurate and up-to-date.',
+                                  'This may include company registration details, tax identification numbers, licenses, or any other official documents. '
+                                  'Please ensure the information is accurate and up-to-date.',
                               style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
+                              TextStyle(fontSize: 18, color: Colors.black),
                               textAlign: TextAlign.justify,
                               textDirection: TextDirection.ltr,
                             ),
